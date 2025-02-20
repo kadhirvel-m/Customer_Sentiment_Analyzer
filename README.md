@@ -1,7 +1,7 @@
 # This is an simple README file
 
 ### Authors & Roles
-Kadhirvel M - Full Stack Developer
+Kadhirvel M - Deep Learning Engineer
 Vanitha A - Frontend Development
 Danushiyaa M - Data Engineering
 Chiruhaas B V - REST API
