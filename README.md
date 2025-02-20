@@ -22,4 +22,3 @@
 
 ### Push to GitHub
 - git push origin master
-
