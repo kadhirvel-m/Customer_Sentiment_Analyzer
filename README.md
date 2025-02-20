@@ -1,24 +1,24 @@
 # This is an simple README file
 
 ### Authors & Roles
-     Kadhirvel M - Full Stack Developer
-     Vanitha A - Frontend Development
-     Danushiyaa M - Data Engineering
-     Chiruhaas B V - REST API
+Kadhirvel M - Full Stack Developer
+Vanitha A - Frontend Development
+Danushiyaa M - Data Engineering
+Chiruhaas B V - REST API
 
 ## Git Setup and Initial Commit
 
 ### Initialize Git Repository
-- git init
+    - git init
 
 ### Add All Files to Staging
-- git add .
+    - git add .
 
 ### Commit Changes
-- git commit -am "initial commit"
+    - git commit -am "initial commit"
 
 ### Add Remote Repository
-- git remote add origin https://github.com/kadhirvel-m/Customer_Sentiment_Analyzer.git
+    - git remote add origin https://github.com/kadhirvel-m/Customer_Sentiment_Analyzer.git
 
 ### Push to GitHub
-- git push origin master
+    - git push origin master
