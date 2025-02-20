@@ -1,10 +1,10 @@
 # This is an simple README file
 
 ### Authors & Roles
-Kadhirvel M - Deep Learning Engineer
-Vanitha A - Frontend Development
-Danushiyaa M - Data Engineering
-Chiruhaas B V - REST API
+- Kadhirvel M - Deep Learning Engineer
+- Vanitha A - Frontend Development
+- Danushiyaa M - Data Engineering
+- Chiruhaas B V - REST API
 
 ## Git Setup and Initial Commit
 
