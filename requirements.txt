@@ -1,0 +1,12 @@
+flask
+transformers
+torch
+tqdm 
+pandas
+numpy 
+seaborn 
+matplotlib
+emoji
+ipywidgets
+tf_keras
+spacy

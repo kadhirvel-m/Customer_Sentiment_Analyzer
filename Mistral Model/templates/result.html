@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+</head>
+<body>
+    <h2>Feedback Analysis Report</h2>
+    <p><strong>Overall Sentiment:</strong> {{ sentiment }}</p>
+    <p><strong>Overall Insight:</strong> {{ insight }}</p>
+
+    <h3>Key Factors:</h3>
+
+    <h4>Positive:</h4>
+    <ul>
+        {% for item in positive %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Negative:</h4>
+    <ul>
+        {% for item in negative %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Neutral:</h4>
+    <ul>
+        {% for item in neutral %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Upload Another File</a>
+</body>
+</html>
