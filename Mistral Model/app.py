@@ -122,9 +122,9 @@ def extract_list(text, start_marker, end_marker=None):
     """Extracts a list of items from the structured response."""
     try:
         section = extract_value(text, start_marker, end_marker)
-        return {item.strip() for item in section.split("\n- ") if item.strip() and "N/A" not in item}
+        return [item.strip() for item in section.split("\n") if item.strip().startswith("- ")]
     except IndexError:
-        return set()
+        return []
 
 if __name__ == "__main__":
     app.run(debug=True)

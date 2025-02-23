@@ -4,17 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback Sentiment Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            resize: none;
+        }
+    </style>
 </head>
 <body>
-    <h2>Upload Feedback CSV File or Enter Feedback Manually</h2>
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <label for="file">Upload CSV:</label>
-        <input type="file" name="file"><br><br>
+    <div class="container">
+        <h2 class="text-center mb-4">Feedback Sentiment Analysis</h2>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="file" class="form-label">Upload CSV:</label>
+                <input type="file" class="form-control" name="file">
+            </div>
 
-        <label for="feedback_text">Or enter feedback manually:</label><br>
-        <textarea name="feedback_text" rows="5" cols="50"></textarea><br><br>
+            <div class="text-center mb-3">or</div>
 
-        <button type="submit">Analyze</button>
-    </form>
+            <div class="mb-3">
+                <label for="feedback_text" class="form-label">Enter feedback manually:</label>
+                <textarea name="feedback_text" class="form-control" rows="5"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Analyze</button>
+        </form>
+    </div>
 </body>
 </html>
