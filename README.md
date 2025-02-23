@@ -21,4 +21,4 @@
     - git remote add origin https://github.com/kadhirvel-m/Customer_Sentiment_Analyzer.git
 
 ### Push to GitHub
-    - git push origin master
+    - git push origin main
