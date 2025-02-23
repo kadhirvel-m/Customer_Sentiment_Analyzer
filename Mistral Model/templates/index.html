@@ -3,102 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Sentiment Analysis</title>
+    <title>AI Summarizing Tool</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            max-width: 600px;
-            margin-top: 50px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        textarea {
-            resize: none;
-        }
-        /* Chatbot Styling */
-        .chatbot-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .chat-container {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 320px;
-            height: 400px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: none;
-            flex-direction: column;
-            border: 1px solid #ccc;
-        }
-        .chat-header {
-            background: #007bff;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 10px 10px 0 0;
-        }
-        .chat-body {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 10px;
-        }
-        .chat-footer {
-            display: flex;
-            border-top: 1px solid #ddd;
-        }
-        .chat-footer input {
-            flex-grow: 1;
-            border: none;
-            padding: 8px;
-            border-radius: 0;
-        }
-        .chat-footer button {
-            border: none;
-            background: #007bff;
-            color: white;
-            padding: 8px 12px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="static/img/logo.png" alt="Grammarly Logo" height="60" class="me-2">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Product <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Work <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Education <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Pricing <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Resources <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a class="nav-link me-3" href="#">Contact Sales</a>
+                    <a class="nav-link me-3" href="#">My Grammarly</a>
+                    <a href="#" class="btn btn-primary">Get Stack's It's free →</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb mx-5 mt-4">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Library</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Data</li>
+        </ol>
+    </nav>
+
+    <main class="container my-5">
+        <div class="row input-f justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4 shadow">
+                    <h2>Customer Sentiment Analyzer</h2>
+                    <p class="text-muted">Unlock deep customer insights with our <strong>Customer Sentiment Analyzer</strong>.</p>
+                    <form action="/" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Upload CSV:</label>
+                            <input type="file" class="form-control" name="file">
+                        </div>
+                        <div class="text-center mb-3">or</div>
+                        <div class="mb-3">
+                            <label for="feedback_text" class="form-label">Enter feedback manually:</label>
+                            <textarea name="feedback_text" class="form-control" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Analyze</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="feature-boxx card p-4 shadow align-items-center">
+                    <img src="static/img/Stack’S.png" class="img-fluid mb-3 image" alt="Features Illustration">
+                    <h5>Access additional features</h5>
+                    <p mt-3>Download Grammarly to improve your writing.</p>
+                    <button class="btn free p-3 mt-2">Get Stacks It’s free →</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="container my-5 text-center boxx">
+        <h2>AI-Powered Customer Feedback Analysis</h2>
+        <p class="text-muted">Unlock valuable customer insights using AI-driven sentiment analysis.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3 shadow">
+                    <i class="bi bi-chat-square-text feature-icon"></i>
+                    <p>Analyze customer feedback across multiple sources.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 shadow">
+                    <i class="bi bi-graph-up feature-icon"></i>
+                    <p>Identify trends, pain points, and sentiment patterns.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 shadow">
+                    <i class="bi bi-emoji-smile feature-icon"></i>
+                    <p>Customize feedback reports with sentiment scores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="container">
-        <h2 class="text-center mb-4">Feedback Sentiment Analysis</h2>
-        <form action="/" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="file" class="form-label">Upload CSV:</label>
-                <input type="file" class="form-control" name="file">
+        <h2 class="heading">Find Inspiration in These AI Summarizer Examples</h2>
+        <p class="subtext">
+            These summary examples were created with AI-powered assistance. Adjust any drafts to fit your needs and remember to cite the original source to avoid plagiarism.
+        </p>
+    
+        <ul class="nav nav-tabs" id="summaryTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#report">Report Example</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#article">Article Example</a>
+            </li>
+        </ul>
+    
+        <div class="tab-content">
+            <div class="tab-pane fade show active content-box" id="report">
+                <h5>Prompt:</h5>
+                <p>Write a summary for senior marketing leaders of these findings on the persuasive nature of VR and AR video advertisements.</p>
+                
+                <h5>Summary generated by AI:</h5>
+                <p>A conceptual review suggests that virtual reality (VR) and augmented reality (AR) video advertisements can persuade consumer attitudes. Incorporating VR and AR technology can help build stronger brands, engage audiences, and provide unique experiences for customers using mobile devices.</p>
+                
+                <p>Six research propositions were identified to examine consumer attitude persuasion based on the literature. Variables like advertisement quality, demographic differences, and technological context in VR and AR ads facilitate central route persuasion. Meanwhile, factors like source credibility, social presence, and message content influence persuasion through the peripheral route. The study presents a method to analyze consumer attitudes using the ELM theory.</p>
+                
+                <p class="mt-3">*This summary came from an article titled <a href="#" class="source-link">"The persuasion effects of virtual reality (VR) and augmented reality (AR) video advertisements: A conceptual review."</a></p>
             </div>
-
-            <div class="text-center mb-3">or</div>
-
-            <div class="mb-3">
-                <label for="feedback_text" class="form-label">Enter feedback manually:</label>
-                <textarea name="feedback_text" class="form-control" rows="5"></textarea>
+    
+            <div class="tab-pane fade content-box" id="article">
+                <h5>Prompt:</h5>
+                <p>Summarize the impact of AI-generated content on modern journalism.</p>
+                
+                <h5>Summary generated by AI:</h5>
+                <p>AI-generated content is transforming journalism by automating news writing, enhancing data-driven insights, and enabling real-time reporting. This shift reduces manual workload, allowing journalists to focus on investigative reporting and creative storytelling.</p>
+                
+                <p>However, challenges like misinformation, bias in AI models, and ethical concerns about authorship persist. Effective AI-human collaboration in newsrooms is essential to balance efficiency with editorial integrity.</p>
+                
+                <p class="mt-3">*This summary is based on a report from <a href="#" class="source-link">"The Future of AI in Journalism: Trends & Challenges."</a></p>
             </div>
-
-            <button type="submit" class="btn btn-primary w-100">Analyze</button>
-        </form>
+        </div>
     </div>
+
+    <div class="containerrr">
+        <h2 class="heading">How to Use AI Feedback Analyzer</h2>
+        <p class="subtext mt-4">
+            Easily analyze customer feedback with AI-powered insights. Just follow these simple steps.
+        </p>
+    
+        <div class="steps-container mt-5">
+            <div class="step-box">
+                <div class="step-icon">1</div>
+                <p class="step-text">Type or paste the feedback into the input box.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-icon">2</div>
+                <p class="step-text">Select either bullet point or paragraph format.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-icon">3</div>
+                <p class="step-text">Choose a preferred sentiment analysis mode and click the “Analyze” button.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-icon">4</div>
+                <p class="step-text">Review the AI-generated insights and make adjustments if needed.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-icon">5</div>
+                <p class="step-text">Download the report or integrate it into your business strategy.</p>
+            </div>
+        </div>
+
+        <div class="container py-5">
+            <h2 class="heading">Who Can Benefit from Our Customer Feedback Analysis Model</h2>
+            <p class="section-subtitle">Our model helps businesses extract meaningful insights from customer feedback to enhance decision-making and improve customer satisfaction.</p>
+    
+            <div class="row">
+                <!-- Business Owners -->
+                <div class="col-md-6 col-lg-6 mb-4">
+                    <div class="card">
+                        <img src="static/img/clg.png" alt="Business Owners">
+                        <div class="card-body">
+                            <h5 class="card-title">Education Institutions</h5>
+                            <p class="card-text">Gain actionable insights from customer feedback to refine products, services, and business strategies.</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Marketing Teams -->
+                <div class="col-md-6 col-lg-6 mb-4">
+                    <div class="card">
+                        <img src="static/img/marketing.jpg" alt="Marketing Teams">
+                        <div class="card-body">
+                            <h5 class="card-title">Marketing Teams</h5>
+                            <p class="card-text">Identify trends, customer sentiment, and brand perception to create data-driven marketing campaigns.</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Customer Support Teams -->
+                <div class="col-md-6 col-lg-6 mb-4">
+                    <div class="card">
+                        <img src="static/img/customer.jpg" alt="Customer Support Teams">
+                        <div class="card-body">
+                            <h5 class="card-title">Customer Support Teams</h5>
+                            <p class="card-text">Understand common issues, improve response strategies, and enhance overall customer experience.</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Product Managers -->
+                <div class="col-md-6 col-lg-6 mb-4">
+                    <div class="card">
+                        <img src="static/img/owner.jpg" alt="Product Managers">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Managers</h5>
+                            <p class="card-text">Analyze user feedback to prioritize feature enhancements and align product development with customer needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2 class="heading">Analyze Customer Sentiment with Ease</h2>
+            <p class="mt-4">Gain deep insights into customer emotions and opinions. Use our sentiment analysis tools to understand feedback trends and make data-driven decisions.</p>
+    
+            <div class="grid-container mt-5">
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Analyze Product Reviews</a>
+                </div>
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Monitor Social Media Reviews</a>
+                </div>
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Assess Customer Feedback</a>
+                </div>
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Evaluate Support Tickets</a>
+                </div>
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Identify Market Trends</a>
+                </div>
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Detect Negative Sentiment</a>
+                </div>
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Improve Customer Experience</a>
+                </div>
+                <div class="grid-item">
+                    <span class="checkmark">✔</span>
+                    <a href="#">Sentiment-Based Strategies</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-container">
+            <h2 class="heading">Frequently Asked Questions</h2>
+    
+            <div class="accordion mt-4" id="faqAccordion">
+                <!-- FAQ 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does AI improve customer feedback analysis?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            AI-driven models use natural language processing (NLP) and machine learning to identify sentiment, trends, and key topics in customer feedback, enabling businesses to make data-driven decisions efficiently.
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- FAQ 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What types of insights can be extracted from feedback analysis?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Feedback analysis provides insights such as customer sentiment (positive, neutral, negative), emerging trends, product or service issues, customer satisfaction scores, and improvement opportunities.
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- FAQ 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            How accurate is AI-based sentiment analysis?
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            AI sentiment analysis is highly accurate, often reaching *85-95% accuracy*, depending on the dataset and model used. Continuous learning and dataset improvements further enhance accuracy over time.
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- FAQ 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can this model analyze multilingual feedback?
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes! Our model supports multiple languages, allowing businesses to analyze feedback from diverse customer bases worldwide, ensuring no valuable insight is missed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- Chatbot Button -->
     <button class="chatbot-btn" onclick="toggleChat()">💬 Stack AI</button>
@@ -107,7 +334,7 @@
     <div class="chat-container" id="chatContainer">
         <div class="chat-header">Stack AI Business Advisor</div>
         <div class="chat-body" id="chatBody">
-            <p><b>Chatbot:</b> Hello! How can I assist your business today?</p>
+            <p><b>StackAI:</b> Hello! How can I assist your business today?</p>
         </div>
         <div class="chat-footer">
             <input type="text" id="chatInput" placeholder="Type a message...">
@@ -142,5 +369,7 @@
         }
     </script>
 
+    <script src="static/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

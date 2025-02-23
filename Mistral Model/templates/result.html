@@ -3,23 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Analysis Report</title>
+    <title>AI Summarizing Tool</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            max-width: 700px;
-            margin-top: 50px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        max-width: 700px;
+        margin-top: 50px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
 <body>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="logo.png" alt="Grammarly Logo" height="60" class="me-2">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#">Product <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Work <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Education <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Pricing <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Resources <i class="fa-solid fa-caret-down ms-1"></i></a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a class="nav-link me-3" href="#">Contact Sales</a>
+                    <a class="nav-link me-3" href="#">My Grammarly</a>
+                    <a href="#" class="btn btn-primary">Get Stack's It's free →</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb mx-5 mt-4">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Chat</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Result</li>
+        </ol>
+    </nav>
+    
     <div class="container">
         <h2 class="text-center mb-4">Feedback Analysis Report</h2>
 
@@ -61,5 +99,47 @@
             <a href="/" class="btn btn-primary">Upload Another File</a>
         </div>
     </div>
+
+    <!-- Chatbot Button -->
+    <button class="chatbot-btn" onclick="toggleChat()">💬 Stack AI</button>
+
+    <!-- Chatbot Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">Stack AI Business Advisor</div>
+        <div class="chat-body" id="chatBody">
+            <p><b>StackAI:</b> Hello! How can I assist your business today?</p>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            let chatBox = document.getElementById("chatContainer");
+            chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+        }
+
+        async function sendMessage() {
+            let inputField = document.getElementById("chatInput");
+            let message = inputField.value.trim();
+            if (message === "") return;
+
+            let chatBody = document.getElementById("chatBody");
+            chatBody.innerHTML += `<p><b>You:</b> ${message}</p>`;
+            inputField.value = "";
+
+            let response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: message })
+            });
+
+            let data = await response.json();
+            chatBody.innerHTML += `<p><b>Chatbot:</b> ${data.reply}</p>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
 </body>
 </html>
