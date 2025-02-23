@@ -19,7 +19,7 @@ def analyze_feedback(text):
     Overall Sentiment: (Positive/Neutral/Negative)
 
     Overall Insight: 
-    (One short paragraph summarizing key strengths and weaknesses)
+    (One very short paragraph summarizing key strengths and weaknesses)
 
     Key Factors:
     
