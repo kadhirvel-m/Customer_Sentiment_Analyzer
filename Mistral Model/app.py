@@ -39,13 +39,34 @@ def analyze_feedback(text):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
+        feedback_text = request.form.get("feedback_text")
         file = request.files.get("file")
-        if not file or file.filename == "":
-            return "No file uploaded", 400
-        
-        file_path = "feedbacks.csv"
-        file.save(file_path)
-        return analyze_feedbacks(file_path)
+
+        if file and file.filename != "":
+            file_path = "feedbacks.csv"
+            file.save(file_path)
+            return analyze_feedbacks(file_path)
+
+        elif feedback_text.strip():
+            analysis = analyze_feedback(feedback_text)
+
+            # Extract sentiment as a single word
+            sentiment = extract_value(analysis, "Overall Sentiment:").split()[0]  
+
+            insight = extract_value(analysis, "Overall Insight:", "Key Factors:")
+            positive = extract_list(analysis, "Positive:", "Negative:")
+            negative = extract_list(analysis, "Negative:", "Neutral:")
+            neutral = extract_list(analysis, "Neutral:")
+
+            return render_template("result.html", 
+                                   sentiment=sentiment, 
+                                   insight=insight, 
+                                   positive=positive, 
+                                   negative=negative, 
+                                   neutral=neutral)
+
+        else:
+            return "Please enter feedback text or upload a CSV file", 400
 
     return render_template("index.html")
 
@@ -62,19 +83,19 @@ def analyze_feedbacks(file_path):
         analysis = analyze_feedback(feedback)
 
         try:
-            sentiment = analysis.split("Overall Sentiment:")[1].split("\n")[0].strip()
-            insight = analysis.split("Overall Insight:")[1].split("\nKey Factors:")[0].strip()
+            sentiment = extract_value(analysis, "Overall Sentiment:")
+            insight = extract_value(analysis, "Overall Insight:", "Key Factors:")
             insights.append(insight)
 
-            negative = analysis.split("Negative:")[1].split("Positive:")[0].strip().split("\n- ")
-            positive = analysis.split("Positive:")[1].split("Neutral:")[0].strip().split("\n- ")
-            neutral = analysis.split("Neutral:")[1].strip().split("\n- ")
+            negative = extract_list(analysis, "Negative:", "Positive:")
+            positive = extract_list(analysis, "Positive:", "Neutral:")
+            neutral = extract_list(analysis, "Neutral:")
 
             sentiment_counts[sentiment] += 1
 
-            all_negative.update([n.strip() for n in negative if n.strip() and "N/A" not in n])
-            all_positive.update([p.strip() for p in positive if p.strip() and "N/A" not in p])
-            all_neutral.update([neu.strip() for neu in neutral if neu.strip() and "N/A" not in neu])
+            all_negative.update(negative)
+            all_positive.update(positive)
+            all_neutral.update(neutral)
 
         except IndexError:
             continue
@@ -83,7 +104,7 @@ def analyze_feedbacks(file_path):
     summary_insight = " ".join(insights[:3])  # Shorten to first 3 insights
 
     return render_template("result.html", sentiment=overall_sentiment, 
-                           insight=summary_insight[:250],  # Limit insight to ~3-4 lines
+                           insight=summary_insight[:250], 
                            positive=sorted(all_positive), 
                            negative=sorted(all_negative), 
                            neutral=sorted(all_neutral))
@@ -93,7 +114,7 @@ def extract_value(text, start_marker, end_marker=None):
     try:
         if end_marker:
             return text.split(start_marker)[1].split(end_marker)[0].strip()
-        return text.split(start_marker)[1].strip()
+        return text.split(start_marker)[1].split("\n")[0].strip()  # Ensure single-word sentiment
     except IndexError:
         return "N/A"
 
@@ -104,7 +125,6 @@ def extract_list(text, start_marker, end_marker=None):
         return {item.strip() for item in section.split("\n- ") if item.strip() and "N/A" not in item}
     except IndexError:
         return set()
-
 
 if __name__ == "__main__":
     app.run(debug=True)
