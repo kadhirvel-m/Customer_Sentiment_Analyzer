@@ -20,9 +20,67 @@
         textarea {
             resize: none;
         }
+        /* Chatbot Styling */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .chat-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 320px;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            border: 1px solid #ccc;
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+        }
+        .chat-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .chat-footer {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+        .chat-footer input {
+            flex-grow: 1;
+            border: none;
+            padding: 8px;
+            border-radius: 0;
+        }
+        .chat-footer button {
+            border: none;
+            background: #007bff;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h2 class="text-center mb-4">Feedback Sentiment Analysis</h2>
         <form action="/" method="POST" enctype="multipart/form-data">
@@ -41,5 +99,48 @@
             <button type="submit" class="btn btn-primary w-100">Analyze</button>
         </form>
     </div>
+
+    <!-- Chatbot Button -->
+    <button class="chatbot-btn" onclick="toggleChat()">💬 Stack AI</button>
+
+    <!-- Chatbot Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">Stack AI Business Advisor</div>
+        <div class="chat-body" id="chatBody">
+            <p><b>Chatbot:</b> Hello! How can I assist your business today?</p>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            let chatBox = document.getElementById("chatContainer");
+            chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+        }
+
+        async function sendMessage() {
+            let inputField = document.getElementById("chatInput");
+            let message = inputField.value.trim();
+            if (message === "") return;
+
+            let chatBody = document.getElementById("chatBody");
+            chatBody.innerHTML += `<p><b>You:</b> ${message}</p>`;
+            inputField.value = "";
+
+            let response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: message })
+            });
+
+            let data = await response.json();
+            chatBody.innerHTML += `<p><b>Chatbot:</b> ${data.reply}</p>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+
 </body>
 </html>

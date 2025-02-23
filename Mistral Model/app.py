@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import pandas as pd
 import ollama
 import os
@@ -35,6 +35,37 @@ def analyze_feedback(text):
 
     response = ollama.chat(model="mistral", messages=[{"role": "user", "content": prompt}])
     return response['message']['content']
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    user_message = request.json.get("message", "").strip()
+
+    if not user_message:
+        return jsonify({"reply": "Please enter a valid message."})
+
+    # Define chatbot prompt for structured and bold-formatted replies
+    prompt = f"""
+    You are Stack AI, a business analyst chatbot.
+    Format the response so that:
+    - Headings are in bold (<b>Title<b>).
+    - Subheadings are also bold but inside <b> (- <b>Subheading<b>).
+    - Each point appears on a new line.
+    - Content is short and structured.
+    - Avoid long paragraphs.
+
+    User: {user_message}
+    Chatbot:
+    """
+
+    # Call Ollama AI model (Mistral) for response
+    response = ollama.chat(model="mistral", messages=[{"role": "user", "content": prompt}])
+
+    chatbot_reply = response.get("message", {}).get("content", "I'm not sure how to answer that.")
+
+    # Ensure proper formatting with bold headings and subheadings
+    formatted_reply = chatbot_reply.replace("\n", "\n\n")  # Improve spacing
+
+    return jsonify({"reply": formatted_reply})
 
 @app.route("/", methods=["GET", "POST"])
 def index():
